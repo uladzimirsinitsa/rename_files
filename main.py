@@ -7,12 +7,14 @@ from bs4 import BeautifulSoup
 
 load_dotenv()
 
+
 PATH_END = os.environ['PATH_END']
 PATH_START = os.environ['PATH_START']
+DOMAIN = os.environ['DOMAIN']
 
 
 def create_list_file() -> list | None:
-    for _, _, files in  os.walk('C:\data\data'):
+    for _, _, files in  os.walk(PATH_START):
         return files
 
 
@@ -25,7 +27,7 @@ def read_file(name_file: str) -> tuple:
 
 
 def save_file(text: str, name: str) -> None:
-    name = str(name[31:])
+    name = str(name[len(DOMAIN):])
     print(name)
     with open(f'{PATH_END}{name}', 'w', encoding="utf-8") as f:
         f.write(text)
@@ -38,9 +40,7 @@ def main():
         text, name =  read_file(name_file)
         save_file(text, name)
     sys.exit()
-    
 
 
 if __name__ == "__main__":
     main()
-    
